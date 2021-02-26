@@ -1,12 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import UserItem from "./UserItem";
+import Loading from "../layout/Loading";
+import PropTypes from "prop-types";
 
-class Users extends Component {
-
-  render() {
-    const { users } = this.props;
+const Users = ({ users, loading }) => {
+  if (loading)
     return (
-      <div style={userStyle} >
+      <Loading />
+    );
+  else
+    return (
+      <div style={userStyle}>
         {users.map((user) => (
           <UserItem
             key={user.id}
@@ -17,14 +21,18 @@ class Users extends Component {
         ))}
       </div>
     );
-  }
-}
+};
+
+Users.propType = {
+  users: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 //Styling for component
 const userStyle = {
-  display: ' grid',
-  gridTemplateColumns:'repeat(3,1fr)',
-  gridGap: '1rem'
-}
+  display: " grid",
+  gridTemplateColumns: "repeat(3,1fr)",
+  gridGap: "1rem",
+};
 
 export default Users;

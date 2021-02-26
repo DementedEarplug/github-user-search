@@ -14,7 +14,9 @@ class App extends Component {
   // this is where you make your api rquets
   async componentDidMount() {
     this.setState({ loading: true });
-    const res = await axios.get("https://api.github.com/users");
+    const res = await axios.get(
+      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
     this.setState({ users: res.data, loading: false });
   }
 
@@ -23,7 +25,7 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <div className='container'>
-            <Users users={this.state.users} loading={this.state.loading} />
+          <Users users={this.state.users} loading={this.state.loading} />
         </div>
       </div>
     );
