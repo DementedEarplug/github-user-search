@@ -10,6 +10,7 @@ export class Search extends Component {
     searchUsers: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,
+    setAlert: PropTypes.func.isRequired,
   };
 
   //* This way of writing the "onChange" method allows to use the same method for different input
@@ -18,8 +19,12 @@ export class Search extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.searchUsers(this.state.text);
-    this.setState({ text: "" });
+    if (this.state.text === "") {
+      this.props.setAlert(" Please enter a user to search for.", "light");
+    } else {
+      this.props.searchUsers(this.state.text);
+      this.setState({ text: "" });
+    }
   };
   render() {
     return (
