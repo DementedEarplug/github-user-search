@@ -14,15 +14,15 @@ class App extends Component {
   // Life cicle method that runs when component mounts.
   // this is where you make your api rquets
   async componentDidMount() {
-    this.setState({ loading: true });
-    const res = await axios.get(
-      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
-    this.setState({ users: res.data, loading: false });
+    this.setState({ loading: false });
+    // const res = await axios.get(
+    //   `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    // );
+    // this.setState({ users: res.data, loading: false });
   }
 
   searchUsers = async (text) => {
-    if (text !== '') {
+    if (text !== "") {
       const res = await axios.get(
         `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
       );
@@ -31,10 +31,7 @@ class App extends Component {
   };
 
   clearSearch = async (text) => {
-    const res = await axios.get(
-      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
-    this.setState({ users: res.data, loading: false });
+    this.setState({ users: [], loading: false });
   };
 
   render() {
@@ -42,7 +39,11 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search searchUsers={this.searchUsers} clearSearch={this.clearSearch} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearSearch={this.clearSearch}
+            showClear={this.state.users.length > 0}
+          />
           <Users users={this.state.users} loading={this.state.loading} />
         </div>
       </div>

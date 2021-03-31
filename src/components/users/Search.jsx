@@ -9,6 +9,7 @@ export class Search extends Component {
   static propTypes = {
     searchUsers: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired,
   };
 
   //* This way of writing the "onChange" method allows to use the same method for different input
@@ -37,12 +38,14 @@ export class Search extends Component {
             className='btn btn-block btn-dark'
           />
         </form>
-        <button
-          className='btn btn-light btn-block '
-          onClick={this.props.clearSearch}
-        >
-          Clear
-        </button>
+        {this.props.showClear && (
+          <button
+            className='btn btn-light btn-block '
+            onClick={this.props.clearSearch}
+          >
+            Clear
+          </button>
+        )}
       </div>
     );
   }
