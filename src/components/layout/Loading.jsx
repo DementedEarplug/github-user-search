@@ -3,7 +3,7 @@ import React from "react";
 export const Loading = () => {
   return (
     <div className="container">
-      <h3 style={{ color: "black", margin: "auto", display: "block" }}>
+      <h3 style={{textAlign:'center', color: "black" }}>
         Loading...
       </h3>
     </div>
