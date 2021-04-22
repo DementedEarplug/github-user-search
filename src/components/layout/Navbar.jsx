@@ -11,6 +11,7 @@ const Navbar = (props) => {
       </h1>
       <ul>
         <li>
+          {/* Link prevents the state from resetting when you redirect. */}
           <Link to="/">Home</Link>
         </li>
         <li><Link to="/About">About</Link></li>
