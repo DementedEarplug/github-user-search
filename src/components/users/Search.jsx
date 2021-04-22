@@ -17,6 +17,7 @@ export class Search extends Component {
   //* files by taking advantage of the name property of each field and using it as the key.
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
+  //* If you don't use an arrow function, you dont have access to the 'this keyword', thus having to use '{this.onSubmit.bind(this)}' when you call it inside jsx.
   onSubmit = (e) => {
     e.preventDefault();
     if (this.state.text === "") {
