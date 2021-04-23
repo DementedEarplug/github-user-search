@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 
 
 const UserItem = (props) => {
@@ -13,9 +14,9 @@ const UserItem = (props) => {
       />
       <h3>{props.login}</h3>
       <div>
-        <a href={props.url} className='btn btn-dark btn-sm my-1'>
+        <Link to={`/user/${props.login}`} className='btn btn-dark btn-sm my-1'>
           More
-        </a>
+        </Link>
       </div>
     </div>
   );
