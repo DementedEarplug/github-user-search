@@ -1,60 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-export class Search extends Component {
-  state = {
-    text: "",
-  };
+const Search = ({ setAlert, searchUsers, clearSearch, showClear }) => {
 
-  static propTypes = {
-    searchUsers: PropTypes.func.isRequired,
-    clearSearch: PropTypes.func.isRequired,
-    showClear: PropTypes.bool.isRequired,
-    setAlert: PropTypes.func.isRequired,
-  };
+  const [text, setText] = useState("");
 
-  //* This way of writing the "onChange" method allows to use the same method for different input
-  //* files by taking advantage of the name property of each field and using it as the key.
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  const onChange = (e) => setText(e.target.value );
 
-  //* If you don't use an arrow function, you dont have access to the 'this keyword', thus having to use '{this.onSubmit.bind(this)}' when you call it inside jsx.
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text === "") {
-      this.props.setAlert(" Please enter a user to search for.", "light");
+    if (text === "") {
+      setAlert(" Please enter a user to search for.", "light");
     } else {
-      this.props.searchUsers(this.state.text);
-      this.setState({ text: "" });
+      searchUsers(text);
+      setText("");
     }
   };
-  render() {
-    return (
-      <div>
-        <form className='form' onSubmit={this.onSubmit}>
-          <input
-            type='text'
-            name='text'
-            placeholder='Search Users'
-            value={this.state.text}
-            onChange={this.onChange}
-          />
-          <input
-            type='submit'
-            value='search'
-            className='btn btn-block btn-dark'
-          />
-        </form>
-        {this.props.showClear && (
-          <button
-            className='btn btn-light btn-block '
-            onClick={this.props.clearSearch}
-          >
-            Clear
-          </button>
-        )}
-      </div>
-    );
-  }
-}
 
+  return (
+    <div>
+      <form className='form' onSubmit={onSubmit}>
+        <input
+          type='text'
+          name='text'
+          placeholder='Search Users'
+          value={text}
+          onChange={onChange}
+        />
+        <input
+          type='submit'
+          value='search'
+          className='btn btn-block btn-dark'
+        />
+      </form>
+      {showClear && (
+        <button className='btn btn-light btn-block ' onClick={clearSearch}>
+          Clear
+        </button>
+      )}
+    </div>
+  );
+};
+
+Search.propTypes = {
+  searchUsers: PropTypes.func.isRequired,
+  clearSearch: PropTypes.func.isRequired,
+  showClear: PropTypes.bool.isRequired,
+  setAlert: PropTypes.func.isRequired,
+};
 export default Search;
