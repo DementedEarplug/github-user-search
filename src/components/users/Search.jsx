@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 //context import
 import GithubContext from '../../context/github/githubContext'
 
-const Search = ({ setAlert, clearSearch, showClear }) => {
+const Search = ({ setAlert}) => {
   const githubContext =  useContext(GithubContext)
+  const {searchUsers, clearSearch, users} = githubContext
   
   const [text, setText] = useState("");
 
@@ -16,7 +17,7 @@ const Search = ({ setAlert, clearSearch, showClear }) => {
     if (text === "") {
       setAlert(" Please enter a user to search for.", "light");
     } else {
-      githubContext.searchUsers(text)
+      searchUsers(text)
       setText("");
     }
   };
@@ -37,7 +38,7 @@ const Search = ({ setAlert, clearSearch, showClear }) => {
           className='btn btn-block btn-dark'
         />
       </form>
-      {showClear && (
+      {(users.length>0) && (
         <button className='btn btn-light btn-block ' onClick={clearSearch}>
           Clear
         </button>

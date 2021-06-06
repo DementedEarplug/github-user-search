@@ -48,11 +48,6 @@ const App = () => {
     }
   };
 
-  const clearSearch = async (text) => {
-    setUsers([]);
-    setLoading(false);
-  };
-
   const showAlert = (message, type) => {
     setAlert({ message, type });
     setTimeout(() => setAlert(null), 3000);
@@ -72,11 +67,9 @@ const App = () => {
                 render={(props) => (
                   <Fragment>
                     <Search
-                      clearSearch={clearSearch}
-                      showClear={users.length > 0}
                       setAlert={showAlert}
                     />
-                    <Users users={users} loading={loading} />
+                    <Users />
                   </Fragment>
                 )}
               ></Route>

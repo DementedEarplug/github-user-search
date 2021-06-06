@@ -16,15 +16,19 @@ export default (state, action) => {
         loading: true
       }
     case SEARCH_USERS:
-      console.log("hello")
       return {
         ...state,
         users: action.payload,
         loading: false
       }
+    case CLEAR_USERS:
+      return {
+        ...state,
+        users: [],
+        loading: false
+      }
   
     default:
       return state
-      break;
   }
 }
