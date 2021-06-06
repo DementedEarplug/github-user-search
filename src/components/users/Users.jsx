@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import UserItem from "./UserItem";
 import Loading from "../layout/Loading";
-import PropTypes from "prop-types";
 
 import GithubContext from '../../context/github/githubContext'
 
