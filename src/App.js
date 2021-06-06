@@ -16,21 +16,7 @@ import axios from "axios";
 import "./App.css";
 
 const App = () => {
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-
-  //Fetch a github user's latest 5 repos
-  const getUserRepos = async (userLogin) => {
-    setLoading(true);
-    if (userLogin !== "") {
-      const res = await axios.get(
-        `https://api.github.com/users/${userLogin}/repos?&direction=desc&sort=updated&per_page=5&direction=desc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      );
-      setRepos(res.data);
-      setLoading(false);
-    }
-  };
 
   const showAlert = (message, type) => {
     setAlert({ message, type });
@@ -64,8 +50,6 @@ const App = () => {
                 render={(props) => (
                   <User
                     {...props}
-                    getUserRepos={getUserRepos}
-                    repos={repos}
                   />
                 )}
               />
