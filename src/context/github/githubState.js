@@ -32,7 +32,20 @@ const GithubState = (props) => {
         `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
       );
 
-      dispatch({type: SEARCH_USERS, payload: res.data.items})
+      dispatch({ type: SEARCH_USERS, payload: res.data.items });
+    }
+  };
+
+  // Get User
+  //Fetch a single Github User
+  const getUserProfile = async (userLogin) => {
+    setLoading();
+    if (userLogin !== "") {
+      const res = await axios.get(
+        `https://api.github.com/users/${userLogin}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      );
+
+      dispatch({ type: GET_USER, payload: res.data });
     }
   };
 
@@ -40,11 +53,11 @@ const GithubState = (props) => {
 
   // Clear users
   const clearSearch = () => {
-    dispatch({type:CLEAR_USERS})
+    dispatch({ type: CLEAR_USERS });
   };
 
   // Set Loading
-  const setLoading = () => dispatch({type: SET_LOADING})
+  const setLoading = () => dispatch({ type: SET_LOADING });
 
   // Return the provider.
   // Pass in to value anything that you want to be available in the entire app.
@@ -56,7 +69,8 @@ const GithubState = (props) => {
         repos: state.repo,
         loading: state.loading,
         searchUsers,
-        clearSearch
+        clearSearch,
+        getUserProfile,
       }}
     >
       {props.children}

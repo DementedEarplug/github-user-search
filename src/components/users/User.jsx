@@ -1,13 +1,18 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import Loading from "../layout/Loading";
 import Repos from "../repos/Repos";
 
-const User = ({ user, getUser, getUserRepos, match, loading, repos }) => {
+import GithubContext from '../../context/github/githubContext'
+
+const User = ({ getUserRepos, match, repos }) => {
+  const githubContext = useContext(GithubContext)
+
+  const {getUserProfile, user, loading} = githubContext
   useEffect(() => {
-    getUser(match.params.login);
+    getUserProfile(match.params.login);
     getUserRepos(match.params.login);
     //eslint-disable-next-line
   }, []); //* The empty set of brackets is used to "watch for changes in a property"
@@ -105,10 +110,7 @@ const User = ({ user, getUser, getUserRepos, match, loading, repos }) => {
 };
 
 User.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
   repos: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
   getUserRepos: PropTypes.func.isRequired,
 };
 

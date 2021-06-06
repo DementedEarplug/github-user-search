@@ -16,24 +16,9 @@ import axios from "axios";
 import "./App.css";
 
 const App = () => {
-  const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-
- 
-
-  //Fetch a single Github User
-  const getUserProfile = async (userLogin) => {
-    setLoading(true);
-    if (userLogin !== "") {
-      const res = await axios.get(
-        `https://api.github.com/users/${userLogin}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      );
-      setUser(res.data);
-      setLoading(false);
-    }
-  };
 
   //Fetch a github user's latest 5 repos
   const getUserRepos = async (userLogin) => {
@@ -79,11 +64,8 @@ const App = () => {
                 render={(props) => (
                   <User
                     {...props}
-                    getUser={getUserProfile}
                     getUserRepos={getUserRepos}
-                    user={user}
                     repos={repos}
-                    loading={loading}
                   />
                 )}
               />
