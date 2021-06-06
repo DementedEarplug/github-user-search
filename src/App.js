@@ -11,8 +11,6 @@ import About from "./components/pages/About";
 // Context imports
 import GithubState from "./context/github/githubState";
 
-import axios from "axios";
-
 import "./App.css";
 
 const App = () => {

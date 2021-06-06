@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import Loading from "../layout/Loading";
@@ -107,11 +106,6 @@ const User = ({ match }) => {
       </div>
     </Fragment>
   );
-};
-
-User.propTypes = {
-  repos: PropTypes.array.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 };
 
 export default User;
