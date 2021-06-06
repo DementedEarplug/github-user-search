@@ -27,11 +27,6 @@ const Users = () => {
     );
 };
 
-Users.propType = {
-  users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-};
-
 //Styling for component
 const userStyle = {
   display: " grid",
