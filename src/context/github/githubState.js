@@ -11,8 +11,7 @@ import {
 } from "../types";
 
 // This is where the apps actions will live.
-//Initial state goes here as well
-
+// Initial state goes here as well
 const GithubState = (props) => {
   const initialState = {
     users: [],
@@ -23,9 +22,17 @@ const GithubState = (props) => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-  //Include all the actions
+  // Include all the actions
+  // Get User
 
-  // Pass in anything that you want to be available in the entire app.
+  // Get Repo
+
+  // Clear users
+
+  // Set Loading
+
+  // Return the provider.
+  // Pass in to value anything that you want to be available in the entire app.
   return (
     <GithubContext.Provider
       value={{

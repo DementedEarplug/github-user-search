@@ -1,4 +1,5 @@
 // Types are just variable strings that you can call to change your state within the reducer.
+// All actions have types.
 
 export const SEARCH_USERS = 'SEARCH_USERS'
 export const GET_USER = 'GET_USER'
