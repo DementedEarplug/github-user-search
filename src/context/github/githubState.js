@@ -10,6 +10,18 @@ import {
   SET_LOADING,
 } from "../types";
 
+let githubCliendId;
+let githubCLientSecret;
+
+if(process.env.NODE_ENV !=='production')
+{
+  githubCLientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET
+  githubCliendId = process.env.REACT_APP_GITHUB_CLIENT_ID
+} else {
+  githubCLientSecret = process.env.GITHUB_CLIENT_SECRET
+  githubCliendId = process.env.GITHUB_CLIENT_ID
+}
+
 // This is where the apps actions will live.
 // Initial state goes here as well
 const GithubState = (props) => {
@@ -29,7 +41,7 @@ const GithubState = (props) => {
       setLoading();
 
       const res = await axios.get(
-        `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        `https://api.github.com/search/users?q=${text}&client_id=${githubCliendId}&client_secret=${githubCLientSecret}`
       );
 
       dispatch({ type: SEARCH_USERS, payload: res.data.items });
@@ -42,7 +54,7 @@ const GithubState = (props) => {
     setLoading();
     if (userLogin !== "") {
       const res = await axios.get(
-        `https://api.github.com/users/${userLogin}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        `https://api.github.com/users/${userLogin}?client_id=${githubCliendId}&client_secret=${githubCLientSecret}`
       );
 
       dispatch({ type: GET_USER, payload: res.data });
@@ -54,7 +66,7 @@ const GithubState = (props) => {
     setLoading();
     if (userLogin !== "") {
       const res = await axios.get(
-        `https://api.github.com/users/${userLogin}/repos?&direction=desc&sort=updated&per_page=5&direction=desc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        `https://api.github.com/users/${userLogin}/repos?&direction=desc&sort=updated&per_page=5&direction=desc&client_id=${githubCliendId}&client_secret=${githubCLientSecret}`
       );
       
       dispatch({type: GET_REPOS, payload: res.data})
