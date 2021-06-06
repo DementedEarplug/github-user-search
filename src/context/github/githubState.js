@@ -23,13 +23,25 @@ const GithubState = (props) => {
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
   // Include all the actions
-  // Get User
+  // Search Github users
+  const searchUsers = async (text) => {
+    if (text !== "") {
+      setLoading();
+
+      const res = await axios.get(
+        `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      );
+
+      dispatch({type: SEARCH_USERS, payload: res.data.items})
+    }
+  };
 
   // Get Repo
 
   // Clear users
 
   // Set Loading
+  const setLoading = () => dispatch({type: SET_LOADING})
 
   // Return the provider.
   // Pass in to value anything that you want to be available in the entire app.
@@ -40,6 +52,7 @@ const GithubState = (props) => {
         user: state.user,
         repos: state.repo,
         loading: state.loading,
+        searchUsers
       }}
     >
       {props.children}
